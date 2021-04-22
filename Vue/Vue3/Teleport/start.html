@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app" style="position: relative">
+    <h3>Tooltips with Vue 3 Teleport</h3>
+    <div>
+      <modal-button></modal-button>
+    </div>
+  </div>
+</body>
+
+<script>
+  const app = Vue.createApp({});
+
+  // 控制在 DOM 中哪个父节点下呈现 HTML
+  app.component('modal-button', {
+    template: `
+    <button @click="modalOpen = true">
+        Open full screen modal! (With teleport!)
+    </button>
+
+    <teleport to="body">
+      <div v-if="modalOpen" class="modal">
+        <div>
+          I'm a teleported modal! 
+          (My parent is "body")
+          <button @click="modalOpen = false">
+            Close
+          </button>
+        </div>
+      </div>
+    </teleport>
+  `,
+    data() {
+      return {
+        modalOpen: false
+      }
+    }
+  })
+
+  app.mount('#app')
+</script>
+
+</html>

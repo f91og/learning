@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="hello-vue" class="demo">
+    {{ count }}
+
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <!-- v-html, v-bind, v-if, v-on -->
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <p><button v-bind:disabled="isButtonDisabled" v-on:click="myClick">buttton</button></p>
+    <p v-if="seen">now you can see me</p>
+
+    <div v-if="Math.random() > 0.5">
+      Now you see me
+    </div>
+    <div v-else>
+      Now you don't
+    </div>
+
+    <!-- v-model实现双向绑定 -->
+    <input v-model="message" placeholder="edit me" />
+    <p>Message is: {{ message }}</p>
+
+    <!-- v-for -->
+    <ul id="array-with-index">
+      <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+      </li>
+    </ul>
+
+
+    <!-- use js expressions -->
+    {{ count +1 }}
+    {{ isButtonDisabled ? 'YES' : 'NO' }}
+    {{ message.split('').reverse().join('') }}
+    <div v-bind:id="'list-' + count"></div>
+
+    <!-- dynamic attribute -->
+    <!-- 普通字符串需要加''，否则会被默认解析成Vue数据对象 -->
+    <!-- 这里不知道为啥Vue将attributeName解析成了attributename，应该是驼峰命名在Vue中有默认的解析规则 -->
+    <a :[attribute]="'https://www.google.com/'" @[event]="myEvent"> Google </a>
+
+  </div>
+</body>
+
+<script>
+  const HelloVueApp = {
+    data() {
+      return {
+        count: 1,
+        message: "Hello Vue",
+        rawHtml: '<span style="color: red">This should be red.</span>',
+        isButtonDisabled: true,
+        seen: true,
+        items: [{ message: 'Foo' }, { message: 'Bar' }],
+        attribute: 'href',
+        event: 'focus'
+      }
+    },
+    methods: {
+      myClick() {
+        alert("you clicked me!")
+      },
+      myEvent() {
+        alert("myEvent!!!")
+      }
+    }
+  }
+
+  Vue.createApp(HelloVueApp).mount('#hello-vue')
+</script>
+
+</html>

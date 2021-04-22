@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="hello-vue" class="demo">
+    <!-- Object Syntax -->
+    <div class="static" :class="{ 'active': isActive, 'text-danger': hasError }"></div>
+    <div :class="classObject"></div>
+
+    <!-- Array Syntax -->
+    <div :class="[activeClass, errorClass]"></div>
+
+    <!-- Object Syntax -->
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+    <div :style="styleObject"></div>
+
+    <!-- Array Syntax -->
+    <div :style="[baseStyles, overridingStyles]"></div>
+  </div>
+</body>
+
+<script>
+  const HelloVueApp = {
+    data() {
+      return {
+        isActive: true,
+        hasError: false,
+        classObject: {
+          'active': true,
+          'text-danger': false
+        },
+        activeClass: 'active',
+        errorClass: 'text-danger',
+        activeColor: 'red',
+        fontSize: 30,
+        styleObject: {
+          color: 'red',
+          fontSize: '13px'
+        },
+        baseStyles: {
+          color: 'red',
+        },
+        overridingStyles: {
+          fontSize: '13px'
+        }
+      }
+    },
+
+
+  }
+
+  const app = Vue.createApp(HelloVueApp)
+
+  const vm = app.mount('#hello-vue')
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@next"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="blog-post-demo" class="demo">
+    <!-- 向博文子组件传递标题 -->
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+  </div>
+</body>
+
+<script>
+  const app = Vue.createApp({})
+
+  app.component('blog-post', {
+    props: ['title'],
+    template: `<h4>{{ title }}</h4>`
+  })
+
+  app.mount('#blog-post-demo')
+</script>
+
+</html>
