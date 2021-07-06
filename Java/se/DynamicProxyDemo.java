@@ -28,7 +28,7 @@ public class DynamicProxyDemo {
         /**
          * handler里的invoke方法，拿到Hello.class中的各项属性，第一个参数proxy表示要代理的interface的具体实例，
          * 第二个参数method表示要代理的这个实例的具体的要代理的方法，第三个参数args表示要传入method的参数。
-         * 所以具体的执行过程就是 handker -> invoke -> proxy和method的处理+自己加的处理逻辑
+         * 所以具体的执行过程就是 handler -> invoke -> proxy和method的处理+自己加的处理逻辑
          * 利用动态代理不光可以为接口直接生成实例，也可以在不修改类的代码的同时生成功能更强的实例
          */
         Hello hello = (Hello) Proxy.newProxyInstance(
