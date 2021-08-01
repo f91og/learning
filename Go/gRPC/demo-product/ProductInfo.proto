@@ -1,0 +1,24 @@
+// 指定protobuf的版本，proto3是最新的语法版本
+syntax="proto3";
+// 
+package product;
+option go_package = "./";
+
+// 定义了一个 ProductInfo 服务，其中有两个方法，分别是添加商品和获取商品
+service ProductInfo {
+    // 添加商品
+    rpc addProduct(Product) returns (ProductId);
+    // 获取商品
+    rpc getProduct(ProductId) returns (Product);
+}
+
+// 定义数据结构，message 你可以想象成java的class，c语言中的struct
+message Product {
+    string id = 1;  // 定义一个string类型的字段，字段名字为id, 序号为1。后面的数字是字段的序列号，不是字段的值
+    string name = 2;    // proto文件中，字段后面的序号，不能重复，定义了就不能修改，可以理解成字段的唯一ID。
+    string description = 3;
+}
+
+message ProductId {
+    string value = 1;
+}
