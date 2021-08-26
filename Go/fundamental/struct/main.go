@@ -34,9 +34,9 @@ func (p person) guonian() {
 	p.age++
 }
 
-// 嵌入结构体，匿名，方法继承
+// 嵌入结构体，匿名字段，方法继承
 type NewType struct {
-	person // 这里直接写入类型，没有给变量名，可以认为这里的person就是父类，因为NewType接收了person的所有方法
+	person // 直接写入类型，没有给变量名，可以认为这里的person就是父类，NewType会接收person所有的方法。注：匿名字段需唯一，匿名字段不常用
 	nt     string
 }
 

@@ -34,7 +34,7 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func TryContext() {
+func main() {
 	http.HandleFunc("/hello", hello)
 	http.ListenAndServe(":8090", nil)
 }
