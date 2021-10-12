@@ -1,0 +1,1 @@
+// 实现页面加载等待时的shimmer animation效果
