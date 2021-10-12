@@ -7,13 +7,6 @@ import (
 	"time"
 )
 
-// In the previous example we used explicit locking with mutexes to synchronize access to shared state across multiple goroutines.
-// Another option is to use the built-in synchronization features of goroutines and channels to achieve the same result.
-// This channel-based approach aligns with Go’s ideas of sharing memory by communicating and having each piece of data owned by exactly 1 goroutine.
-
-// In this example our state will be owned by a single goroutine. This will guarantee that the data is never corrupted with concurrent access.
-// In order to read or write that state, other goroutines will send messages to the owning goroutine and receive corresponding replies.
-// These readOp and writeOp structs encapsulate those requests and a way for the owning goroutine to respond.
 type readOp struct {
 	key  int
 	resp chan int

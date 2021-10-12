@@ -26,7 +26,7 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	select {
 	case <-time.After(10 * time.Second):
 		fmt.Fprintf(w, "hello\n") // 把 hello\n 写入到 w 中
-	case <-ctx.Done(): // While working, keep an eye on the context’s Done() channel for a signal that we should cancel the work and return as soon as possible.
+	case <-ctx.Done():
 		err := ctx.Err() // The context’s Err() method returns an error that explains why the Done() channel was closed.
 		fmt.Println("server:", err)
 		internalError := http.StatusInternalServerError
@@ -45,38 +45,34 @@ func main() {
 // use <-ctx.Done() to listen a cancellation event
 // for emitting a cancellation event, use WithCancel function in the context package, eg: ctx, fn := context.WithCancel(ctx)
 
-// assume that this operation failed for some reason
-func operation1(ctx context.Context) error {
+func func1(ctx context.Context) error {
 	time.Sleep(100 * time.Millisecond)
-	return errors.New("failed")
+	return errors.New("failed") // func1 failed
 }
 
-func operation2(ctx context.Context) {
+func dosthAlongWithfunc1(ctx context.Context) {
 	select {
 	case <-time.After(500 * time.Millisecond):
 		fmt.Println("done")
-	case <-ctx.Done(): // operation2监听使用的context有没有被取消
+	case <-ctx.Done():
 		fmt.Println("halted operation2")
 	}
 }
 
 func TryContextCancellation() {
 	ctx := context.Background()
-
-	// Create a new context, with its cancellation function from the original context
-	// 利用WithCancel()可以得到一个cancel()方法，用这个方法就可以 emit a cancellation event
 	ctx, cancel := context.WithCancel(ctx)
 
 	// we want the context used in operation2 will be cancled if operation1 failed
 	go func() {
-		err := operation1(ctx)
+		err := func1(ctx)
 		// If this operation returns an error cancel all operations using this context
 		if err != nil {
-			cancel()
+			cancel() // 取消了这个协程的context，利用这个context的所有协程都会收到通知
 		}
 	}()
 
-	operation2(ctx)
+	dosthAlongWithfunc1(ctx)
 }
 
 // 👇 Context Timeouts

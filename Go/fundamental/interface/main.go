@@ -86,6 +86,7 @@ func main() {
 	// fmt.Println(d.(rect2)) 👈 panic
 	// fmt.Println(any.(int)) 👈 panic
 
+	// 类型断言2，判断接口里存储的动态类型
 	if v, ok := any.(int); ok {
 		fmt.Println(v)
 	} else if v, ok := any.(string); ok {

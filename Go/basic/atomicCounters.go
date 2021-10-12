@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 )
 
-// 使用sync/atomic包的atomic counter来管理协程之间的状态，是channel通信管理状态的一种代替
+// 使用sync/atomic包的atomic counter来管理协程之间的状态
 func TryAtomicCounters() {
 
 	// use an unsigned integer to represent our (always-positive) counter.
